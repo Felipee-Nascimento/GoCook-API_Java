@@ -1,8 +1,12 @@
 package br.com.gocook.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReceitaDTO {
     private Long id;
     private String titulo;
+    private String ingrediente;
     private Integer tempoDePreparo;
     private String modoDePreparo;
     private Integer quantidadeDePessoasServidas;
@@ -21,6 +25,14 @@ public class ReceitaDTO {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getIngrediente() {
+        return ingrediente;
+    }
+
+    public void setIngrediente(String ingrediente) {
+        this.ingrediente = ingrediente;
     }
 
     public Integer getTempoDePreparo() {
@@ -47,3 +59,4 @@ public class ReceitaDTO {
         this.quantidadeDePessoasServidas = quantidadeDePessoasServidas;
     }
 }
+

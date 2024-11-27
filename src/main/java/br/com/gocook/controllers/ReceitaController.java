@@ -1,4 +1,4 @@
-package br.com.gocook.api;
+package br.com.gocook.controllers;
 
 import br.com.gocook.dto.ReceitaDTO;
 import br.com.gocook.facade.Facade;
@@ -7,12 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
 
 @Controller
 @RequestMapping(value = "/receitas", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ReceitasAPI {
+public class ReceitaController {
 
     @Autowired
     private Facade facade;
