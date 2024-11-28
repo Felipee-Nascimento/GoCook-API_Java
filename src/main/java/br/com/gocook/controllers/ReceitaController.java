@@ -40,13 +40,17 @@ public class ReceitaController {
 
     @GetMapping
     @ResponseBody
-    public List<ReceitaDTO> getAll() throws Exception {
+    public List<ReceitaDTO> getAll(
+            @RequestParam(required = false) String titulo,
+            @RequestParam(required = false) Integer tempoDePreparo,
+            @RequestParam(required = false) Integer quantidadeDePessoasServidas
+    ) throws Exception {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         if(!(authentication.getPrincipal() instanceof User)){
             throw new Exception("USER NOT FOUND");
         }
-        return facade.getAll(user.getId());
+        return facade.getAll(user.getId(), titulo, tempoDePreparo, quantidadeDePessoasServidas);
     }
 
     @GetMapping("/{receitaId}")

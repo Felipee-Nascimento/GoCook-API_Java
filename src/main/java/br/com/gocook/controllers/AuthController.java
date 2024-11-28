@@ -62,4 +62,16 @@ public class AuthController {
 
         return "No user is authenticated";
     }
+
+    @DeleteMapping
+    public String delete(@RequestBody LoginRequestDTO body) throws Exception {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        if(!(authentication.getPrincipal() instanceof User)){
+            throw new Exception("USER NOT FOUND");
+        }
+        this.repository.delete(user);
+        return "USER DELETED";
+    }
+
 }

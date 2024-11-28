@@ -57,22 +57,34 @@ public class Facade {
          return new ReceitaDTO(receita);
     }
 
-    public List<ReceitaDTO> getAll (String userId){
-        return repository.findByUserId(userId) // Filtra receitas pelo usuário
-                .stream()
-                .map(this::converter)
-                .collect(Collectors.toList());
-    }
+//    public List<ReceitaDTO> getAll (String userId){
+//        return repository.findByUserId(userId) // Filtra receitas pelo usuário
+//                .stream()
+//                .map(this::converter)
+//                .collect(Collectors.toList());
+//    }
 
-    public List<ReceitaDTO> getFilteredReceitas(String userId, String nome, String categoria) {
-        // Cria a Specification com base nos parâmetros
-        Specification<Receita> specification = Specification.where(ReceitaSpecification.hasUserId(userId))
-                .and(ReceitaSpecification.hasNome(nome))
-                .and(ReceitaSpecification.hasCategoria(categoria));
+    public List<ReceitaDTO> getAll (String userId, String titulo, Integer tempoDePreparo, Integer quantidadeDePessoasServidas){
+        Specification<Receita> spec = Specification.where(null);
 
-        // Envia a Specification para o repositório e retorna as receitas filtradas
-        return repository.findAll(specification)
-                .stream()
+        if (userId != null) {
+            spec = spec.and((root, query, builder) -> builder.equal(root.get("user").get("id"), userId));
+        }
+        if (titulo != null && !titulo.isEmpty()) {
+            spec = spec.and((root, query, builder) -> builder.like(root.get("titulo"), "%" + titulo + "%"));
+        }
+        if (tempoDePreparo != null) {
+            spec = spec.and((root, query, builder) -> builder.equal(root.get("tempoDePreparo"), tempoDePreparo));
+        }
+        if (quantidadeDePessoasServidas != null) {
+            spec = spec.and((root, query, builder) -> builder.equal(root.get("quantidadeDePessoasServidas"), quantidadeDePessoasServidas));
+        }
+
+
+
+        List<Receita> receitas = repository.findAll(spec);
+
+        return receitas.stream()
                 .map(this::converter)
                 .collect(Collectors.toList());
     }
