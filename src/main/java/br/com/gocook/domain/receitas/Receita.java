@@ -1,5 +1,6 @@
 package br.com.gocook.domain.receitas;
 
+import br.com.gocook.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,8 @@ public class Receita {
     private Integer tempoDePreparo;
     private String modoDePreparo;
     private Integer quantidadeDePessoasServidas;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User user;
 }

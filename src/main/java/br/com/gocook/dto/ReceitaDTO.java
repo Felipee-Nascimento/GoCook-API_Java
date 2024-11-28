@@ -1,5 +1,7 @@
 package br.com.gocook.dto;
 
+import br.com.gocook.domain.receitas.Receita;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,19 @@ public class ReceitaDTO {
     private Integer tempoDePreparo;
     private String modoDePreparo;
     private Integer quantidadeDePessoasServidas;
+
+    public ReceitaDTO(){
+
+    }
+
+    public ReceitaDTO(Receita receita) {
+        this.id = receita.getId();
+        this.titulo = receita.getTitulo();
+        this.ingrediente = receita.getIngrediente();
+        this.tempoDePreparo = receita.getTempoDePreparo();
+        this.modoDePreparo = receita.getModoDePreparo();
+        this.quantidadeDePessoasServidas = receita.getQuantidadeDePessoasServidas();
+    }
 
     public Long getId() {
         return id;
