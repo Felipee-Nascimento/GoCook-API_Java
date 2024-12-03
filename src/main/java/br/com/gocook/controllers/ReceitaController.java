@@ -40,6 +40,7 @@ public class ReceitaController {
 
     @GetMapping
     @ResponseBody
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     public List<ReceitaDTO> getAll(
             @RequestParam(required = false) String titulo,
             @RequestParam(required = false) Integer tempoDePreparo,
