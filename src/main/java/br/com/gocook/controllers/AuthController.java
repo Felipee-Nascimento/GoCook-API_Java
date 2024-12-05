@@ -1,6 +1,7 @@
 package br.com.gocook.controllers;
 
 import br.com.gocook.domain.user.User;
+import br.com.gocook.dto.CurrentUserDTO;
 import br.com.gocook.dto.LoginRequestDTO;
 import br.com.gocook.dto.RegisterRequestDTO;
 import br.com.gocook.dto.ResponseDTO;
@@ -52,15 +53,15 @@ public class AuthController {
     }
 
     @GetMapping("/current-user")
-    public String getCurrentUser() {
+    public ResponseEntity getCurrentUser() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof User) {
             User user = (User) authentication.getPrincipal();
-            return "Current User ID: " + user.getId() + ", Email: " + user.getEmail();
+            return ResponseEntity.ok(new CurrentUserDTO(user.getName(), user.getEmail()));
         }
 
-        return "No user is authenticated";
+        return ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping
@@ -73,5 +74,4 @@ public class AuthController {
         this.repository.delete(user);
         return "USER DELETED";
     }
-
 }
